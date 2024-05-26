@@ -383,3 +383,246 @@ With a depth argument: It flattens up to the specified depth level.
 function myFunction(...arrays) {
   return arrays.flat();
 }
+
+// 16. Write a function that takes an array of objects as argument. Sort the array by property b in ascending order. Return the sorted array
+
+/*
+myFunction([{a:1,b:2},{a:5,b:4}])
+Expected
+[{a:1,b:2},{a:5,b:4}]
+myFunction([{a:2,b:10},{a:5,b:4}])
+Expected
+[{a:5,b:4},{a:2,b:10}]
+myFunction([{a:1,b:7},{a:2,b:1}])
+Expected
+[{a:2,b:1},{a:1,b:7}]
+*/
+
+function myFunction(arr) {
+  return arr.sort((a, b) => a.b - b.b);
+}
+
+// 17. Write a function that takes two arrays as arguments. Merge both arrays and remove duplicate values. Sort the merge result in ascending order. Return the resulting array
+
+/*
+myFunction([1, 2, 3], [3, 4, 5])
+Expected
+[ 1, 2, 3, 4, 5 ]
+myFunction([-10, 22, 333, 42], [-11, 5, 22, 41, 42])
+Expected
+[ -11, -10, 5, 22, 41,  42, 333]
+*/
+
+// first Approach
+function myFunction(a, b) {
+  const mergedArr = a.concat(b);
+  const uniqueSet = new Set(mergedArr);
+  const uniqueArr = Array.from(uniqueSet);
+  return uniqueArr.sort((x, y) => x - y);
+}
+
+// second appraoch
+function myFunction(a, b) {
+  const mergedArr = [...a, ...b];
+  const uniqueSet = new Set(mergedArr);
+  const uniqueArr = [...uniqueSet];
+  return uniqueArr.sort((x, y) => x - y);
+}
+
+// third - simplified way
+function myFunction(a, b) {
+  return [...new Set([...a, ...b])].sort((x, y) => x - y);
+}
+
+// 18. Write a function that takes an object with two properties as argument. It should return the value of the property with key country.
+
+/*
+myFunction({ continent: 'Asia', country: 'Japan' })
+Expected
+'Japan'
+myFunction({ country: 'Sweden', continent: 'Europe' })
+Expected
+'Sweden'
+*/
+
+function myFunction(obj) {
+  return obj.country; // obj["country"]
+}
+
+// 19. Write a function that takes an object with two properties as argument. It should return the value of the property with key 'prop-2'.
+
+/*
+myFunction({  one: 1,  'prop-2': 2})
+Expected
+2
+myFunction({  'prop-2': 'two',  prop: 'test'})
+Expected
+'two'
+*/
+
+function myFunction(obj) {
+  return obj["prop-2"];
+}
+
+// 20. Write a function that takes an object with two properties and a string as arguments. It should return the value of the property with key equal to the value of the string
+
+/*
+myFunction({  continent: 'Asia',  country: 'Japan'}, 'continent')
+Expected
+'Asia'
+myFunction({  country: 'Sweden',  continent: 'Europe'}, 'country')
+Expected
+'Sweden'
+*/
+
+function myFunction(obj, key) {
+  return obj[key];
+}
+
+// 21. Write a function that takes an object (a) and a string (b) as argument. Return true if the object has a property with key 'b'. Return false otherwise. Hint: test case 3 is a bit tricky because the value of property 'z' is undefined. But the property itself exists.
+
+/*
+myFunction({a:1,b:2,c:3},'b')
+Expected
+true
+myFunction({x:'a',y:'b',z:'c'},'a')
+Expected
+false
+myFunction({x:'a',y:'b',z:undefined},'z')
+Expected
+true
+*/
+
+// first approach
+function myFunction(a, b) {
+  return Object.keys(a).includes(b);
+}
+
+// second appraoch
+function myFunction(a, b) {
+  return b in a;
+}
+
+// 22. Write a function that takes an object (a) and a string (b) as argument. Return true if the object has a property with key 'b', but only if it has a truthy value. In other words, it should not be null or undefined or false. Return false otherwise.
+
+/*
+myFunction({a:1,b:2,c:3},'b')
+Expected
+true
+myFunction({x:'a',y:null,z:'c'},'y')
+Expected
+false
+myFunction({x:'a',b:'b',z:undefined},'z')
+Expected
+false
+*/
+
+// first appraoch
+function myFunction(a, b) {
+  return b in a && a[b] ? true : false;
+}
+
+// second approach
+
+function myFunction(a, b) {
+  return a[b] ? true : false;
+}
+
+// third appraoch
+function myFunction(a, b) {
+  return Boolean(a[b]);
+}
+
+// 23. Write a function that takes a string as argument. Create an object that has a property with key 'key' and a value equal to the string. Return the object.
+
+/*
+myFunction('a')
+Expected
+{key:'a'}
+myFunction('z')
+Expected
+{key:'z'}
+myFunction('b')
+Expected
+{key:'b'}
+*/
+
+function myFunction(a) {
+  return { key: a };
+}
+
+// 24. Write a function that takes two strings (a and b) as arguments. Create an object that has a property with key 'a' and a value of 'b'. Return the object.
+
+/*
+myFunction('a','b')
+Expected
+{a:'b'}
+myFunction('z','x')
+Expected
+{z:'x'}
+myFunction('b','w')
+Expected
+{b:'w'}
+*/
+
+function myFunction(a, b) {
+  return { [a]: b }; // // Use bracket notation for dynamic property name
+}
+
+// 24. Write a function that takes two arrays (a and b) as arguments. Create an object that has properties with keys 'a' and corresponding values 'b'. Return the object.
+
+/*
+myFunction(['a','b','c'],[1,2,3])
+Expected
+{a:1,b:2,c:3}
+myFunction(['w','x','y','z'],[10,9,5,2])
+Expected
+{w:10,x:9,y:5,z:2}
+myFunction([1,'b'],['a',2])
+Expected
+{1:'a',b:2}
+*/
+
+// first appraoch
+function myFunction(a, b) {
+  let obj = {};
+  a.forEach((item, index) => {
+    obj[item] = b[index];
+  });
+  return obj;
+}
+
+// second approach
+function myFunction(a, b) {
+  return a.reduce((acc, cv, i) => ({ ...acc, [cv]: b[i] }), {}); // acc -> Accumulator/Total, cv -> currentValue, i -> index
+}
+
+// 25. Write a function that takes an object (a) as argument. Return an array with all object keys.
+
+/*
+myFunction({a:1,b:2,c:3})
+Expected
+['a','b','c']
+myFunction({j:9,i:2,x:3,z:4})
+Expected
+['j','i','x','z']
+myFunction({w:15,x:22,y:13})
+Expected
+['w','x','y']
+*/
+
+function myFunction(a) {
+  return Object.keys(a);
+}
+
+// 26.
+
+/*
+
+*/
+
+// 27.
+
+/*
+
+*/
