@@ -615,14 +615,173 @@ function myFunction(a) {
   return Object.keys(a);
 }
 
-// 26.
+// 26. Write a function that takes an object (a) as argument. Return the sum of all object values.
+
+/*
+myFunction({a:1,b:2,c:3})
+Expected
+6
+myFunction({j:9,i:2,x:3,z:4})
+Expected
+18
+myFunction({w:15,x:22,y:13})
+Expected
+50
+*/
+
+function myFunction(a) {
+  return Object.values(a).reduce((total, cv) => (cv += total), 0);
+}
+
+// 27. Write a function that takes an object as argument. It should return an object with all original object properties. except for the property with key 'b'
+
+/*
+myFunction({ a: 1, b: 7, c: 3 })
+Expected
+{ a: 1, c: 3 }
+myFunction({ b: 0, a: 7, d: 8 })
+Expected
+{ a: 7, d: 8 }
+myFunction({ e: 6, f: 4, b: 5, a: 3 })
+Expected
+{ e: 6, f: 4, a: 3 }
+*/
+
+// first appraoch
+function myFunction(obj) {
+  let newObj = {};
+  for (let key in obj) {
+    if (key !== "b") {
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj;
+}
+
+// second approach
 
 /*
 
+Object Destructuring:
+
+It uses object destructuring to unpack the properties of the obj argument.
+The b property is explicitly captured and discarded.
+The remaining properties are captured using the rest syntax (...rest). This creates a new object (rest) containing all properties except for b.
+
+Return the New Object:
+
+The function returns the rest object, which effectively excludes the 'b' property.
 */
 
-// 27.
+function myFunction(obj) {
+  const { b, ...rest } = obj;
+  return rest;
+}
+
+// 28. Write a function that takes two objects as arguments. Unfortunately, the property 'b' in the second object has the wrong key. It should be named 'd' instead. Merge both objects and correct the wrong property name. Return the resulting object. It should have the properties 'a', 'b', 'c', 'd', and 'e'
+
+/*
+myFunction({ a: 1, b: 2 }, { c: 3, b: 4, e: 5 })
+Expected
+{ a: 1, b: 2, c: 3, e: 5, d: 4}
+myFunction({ a: 5, b: 4 }, { c: 3, b: 1, e: 2 })
+Expected
+{ a: 5, b: 4, c: 3, e: 2, d: 1}
+*/
+
+// first appraoch
+function myFunction(x, y) {
+  const { c, b: d, e } = y;
+  return { ...x, c, d, e };
+}
+
+// second appraoch
+function myFunction(x, y) {
+  const { b, ...rest } = y;
+  return { ...x, ...rest, d: b };
+}
+
+// 29. Write a function that takes an object (a) and a number (b) as arguments. Multiply all values of 'a' by 'b'. Return the resulting object.
+
+/*
+myFunction({a:1,b:2,c:3},3)
+Expected
+{a:3,b:6,c:9}
+myFunction({j:9,i:2,x:3,z:4},10)
+Expected
+{j:90,i:20,x:30,z:40}
+myFunction({w:15,x:22,y:13},6)
+Expected
+{w:90,x:132,y:78}
+*/
+
+// first appraoch
+function myFunction(a, b) {
+  const modifiedObj = {};
+  for (let key in a) {
+    modifiedObj[key] = a[key] * b;
+  }
+
+  return modifiedObj;
+}
+
+// second appraoch
 
 /*
 
+Understanding the Code:
+
+Object.entries(a):
+
+This line converts the object a into an array of key-value pairs.
+Imagine a is { a: 1, b: 2, c: 3 }. Object.entries(a) would become [["a", 1], ["b", 2], ["c", 3]].
+Each element in this array is a sub-array with two elements:
+The first element is the property key (string, e.g., "a").
+The second element is the property value (number, e.g., 1).
+reduce((acc, [key, val]) => {...}, {}):
+
+This part uses the reduce method to iterate through the array of key-value pairs created by Object.entries(a).
+reduce takes two arguments:
+acc: Accumulator (starts as an empty object {}). This will hold the partially built new object with multiplied values.
+[key, val]: An array representing the current key-value pair being processed during the loop.
+Array Destructuring in reduce:
+
+Inside the reduce function, you're using array destructuring with [key, val]. This unpacks the current key-value pair from the array into separate variables:
+key: Holds the current property name (e.g., "a", "b", or "c").
+val: Holds the current property value (e.g., 1, 2, or 3).
+Creating the New Object:
+
+Within the reduce callback:
+{...acc, [key]: val * b}: This line uses the spread operator (...acc) to create a new object based on the current accumulator (acc). It essentially copies the properties from acc into the new object.
+[key]: val * b: Here, the square brackets ([]) are used with key to create a dynamic property name for the new object. The current key value (e.g., "a") becomes the property name.
+val * b: The value (val) is multiplied by the number b.
+The entire expression {...acc, [key]: val * b} creates a new object with the updated property (using key and the multiplied value).
+Returning the Result:
+
+The reduce method returns the final accumulated object. This object contains all the original keys from a with their values multiplied by b.
+
 */
+
+function myFunction(a, b) {
+  return Object.entries(a).reduce((acc, [key, val]) => {
+    return { ...acc, [key]: val * b };
+  }, {});
+}
+
+// 30. Sounds easy, but you need to know the trick. Write a function that takes two date instances as arguments. It should return true if the dates are equal. It should return false otherwise.
+
+/*
+myFunction(new Date('2000/01/01 08:00:00'), new Date('2000/01/01 08:45:00'))
+Expected
+false
+myFunction(new Date('2000/01/01 08:00:00'), new Date('2000/01/01 08:00:00'))
+Expected
+true
+myFunction(new Date('2001/01/01 08:00:00'), new Date('2000/01/01 08:00:00'))
+Expected
+false
+*/
+
+function myFunction(a, b) {
+  return a.getTime() === b.getTime();
+}
