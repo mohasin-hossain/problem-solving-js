@@ -1,3 +1,7 @@
+// Problem Solving - JavaScript
+//////////////////////////////
+
+
 // 1. Write a function that takes a number (a) as argument. Split a into its individual digits and return them in an array.
 
 /*
@@ -726,7 +730,6 @@ function myFunction(a, b) {
 }
 
 // second appraoch
-
 /*
 
 Understanding the Code:
@@ -759,7 +762,6 @@ The entire expression {...acc, [key]: val * b} creates a new object with the upd
 Returning the Result:
 
 The reduce method returns the final accumulated object. This object contains all the original keys from a with their values multiplied by b.
-
 */
 
 function myFunction(a, b) {
