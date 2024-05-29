@@ -1,7 +1,6 @@
 // Problem Solving - JavaScript
 //////////////////////////////
 
-
 // 1. Write a function that takes a number (a) as argument. Split a into its individual digits and return them in an array.
 
 /*
@@ -786,4 +785,25 @@ false
 
 function myFunction(a, b) {
   return a.getTime() === b.getTime();
+}
+
+// 31. Write a function that takes a value as argument. Return the type of the value.
+
+/*
+myFunction(1)
+Expected
+'number'
+myFunction(false)
+Expected
+'boolean'
+myFunction({})
+Expected
+'object'
+myFunction(null)
+Expected
+'object'
+*/
+
+function myFunction(a) {
+  return typeof a;
 }
