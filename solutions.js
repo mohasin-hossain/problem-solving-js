@@ -807,3 +807,21 @@ Expected
 function myFunction(a) {
   return typeof a;
 }
+
+// 32. Write a function that takes a string (a) and a number (n) as argument. Return the nth character of 'a'.
+
+/*
+myFunction('abcd',1)
+Expected
+'a'
+myFunction('zyxbwpl',5)
+Expected
+'w'
+myFunction('gfedcba',3)
+Expected
+'e'
+*/
+
+function myFunction(a, n) {
+  return a[n - 1];
+}
