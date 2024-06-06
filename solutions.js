@@ -825,3 +825,25 @@ Expected
 function myFunction(a, n) {
   return a[n - 1];
 }
+
+// 33. Write a function that takes two strings (a and b) as arguments. Return the number of times a occurs in b.
+
+/*
+
+myFunction('m', 'how many times does the character occur in this sentence?')
+Expected
+2
+myFunction('h', 'how many times does the character occur in this sentence?')
+Expected
+4
+myFunction('?', 'how many times does the character occur in this sentence?')
+Expected
+1
+myFunction('z', 'how many times does the character occur in this sentence?')
+Expected
+0
+*/
+
+function myFunction(a, b) {
+  return b.split(a).length - 1;
+}
